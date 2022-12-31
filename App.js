@@ -1,20 +1,27 @@
+
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Switch, Text, View } from 'react-native';
+import { useColorScheme } from "nativewind";
+import ProductList from './components/ProductList';
 
 export default function App() {
+
+
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView className=" bg-gray-100 dark:bg-black">
+      <View className=" py pl-8 flex items-center  flex-row space-x-5">
+        <Text className=" dark:text-white text-2xl font-bold ">New Products</Text>
+        <Switch
+          value={colorScheme === "dark"}
+          onChange={toggleColorScheme} />
+      </View>
+      <ProductList />
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
